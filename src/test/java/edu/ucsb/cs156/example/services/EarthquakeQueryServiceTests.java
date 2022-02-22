@@ -1,4 +1,4 @@
-package edu.ucsb.cs156.spring.backenddemo.services;
+package edu.ucsb.cs156.example.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;

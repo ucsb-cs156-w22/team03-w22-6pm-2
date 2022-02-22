@@ -1,4 +1,4 @@
-package edu.ucsb.cs156.spring.backenddemo.services;
+package edu.ucsb.cs156.example.services;
 
 import java.util.List;
 import java.util.Map;
