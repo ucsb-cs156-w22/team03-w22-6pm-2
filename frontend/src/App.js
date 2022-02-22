@@ -15,6 +15,9 @@ import UCSBDatesEditPage from "main/pages/UCSBDates/UCSBDatesEditPage";
 import StudentsIndexPage from "main/pages/Students/StudentsIndexPage";
 import StudentsCreatePage from "main/pages/Students/StudentsCreatePage";
 
+import EarthquakeIndexPage from "main/pages/Earthquakes/EarthquakesIndexPage";
+import EarthquakeCreatePage from "main/pages/Earthquake/EarthquakesCreatePage";
+
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
 
 import "bootstrap/dist/css/bootstrap.css";
@@ -54,6 +57,21 @@ function App() {
           hasRole(currentUser, "ROLE_ADMIN") && (
             <>
               <Route exact path="/students/create" element={<StudentsCreatePage />} />
+            </>
+          )
+        }
+        {
+          hasRole(currentUser, "ROLE_USER") && (
+            <>
+              <Route exact path="/earthquakes/list" element={<EarthquakesIndexPage />} />
+            </>
+          )
+        }
+        {
+          hasRole(currentUser, "ROLE_ADMIN") && (
+            <>
+              <Route exact path="/earthquakes/create" element={<EarthquakesCreatePage />} />
+              <Route exact path="/earthquakes/list" element={<EarthquakesIndexPage />} />
             </>
           )
         }
