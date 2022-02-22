@@ -33,9 +33,16 @@ public class EarthquakeController extends ApiController {
     ObjectMapper mapper;
 
     @ApiOperation(value = "List all earthquakes")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
     public Iterable<EarthquakeFeature> allEarthQuakes() {
         Iterable<EarthquakeFeature> quakes = earthquakeCollection.findAll();
         return quakes;
+    }
+    @ApiOperation(value = "Purge all earthquakes")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/purge")
+    public void purgeAll() {
+        earthquakeCollection.deleteAll();
     }
 }
