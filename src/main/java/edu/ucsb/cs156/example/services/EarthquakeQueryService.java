@@ -23,6 +23,7 @@ import org.springframework.web.client.HttpClientErrorException;
 public class EarthquakeQueryService {
 
     ObjectMapper mapper = new ObjectMapper();
+    //mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     private final RestTemplate restTemplate;
 
