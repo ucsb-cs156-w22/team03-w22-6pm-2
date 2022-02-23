@@ -97,7 +97,7 @@ public class UCSBSubjectsController extends ApiController {
 
     @ApiOperation(value = "Add new subject to database")
     @PreAuthorize("hasRole('ROLE_USER')")
-    @PostMapping("/post")
+    @PostMapping("/create")
     public UCSBSubject postUCSBSubject(
             @ApiParam("subjectCode") @RequestParam String subjectCode,
             @ApiParam("subjectTranslation") @RequestParam String subjectTranslation,
