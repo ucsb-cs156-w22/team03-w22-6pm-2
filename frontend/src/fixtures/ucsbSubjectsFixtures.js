@@ -1,5 +1,5 @@
 const ucsbSubjectsFixtures = {
-    oneDate: {
+    oneSubject: {
         "id": 1,
         "subjectCode": "testSubjectCode",
         "subjectTranslation": "testSubjectTranslation",
@@ -8,7 +8,7 @@ const ucsbSubjectsFixtures = {
         "relatedDeptCode": "testRelatedDeptCode",
         "inactive": true
     },
-    threeDates: [
+    threeSubjects: [
         {
             "id": 1,
             "subjectCode": "testSubjectCode",
