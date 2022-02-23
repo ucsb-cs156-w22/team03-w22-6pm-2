@@ -20,8 +20,8 @@ import CollegiateSubredditsCreatePage from "main/pages/CollegiateSubreddits/Coll
 import StudentsIndexPage from "main/pages/Students/StudentsIndexPage";
 import StudentsCreatePage from "main/pages/Students/StudentsCreatePage";
 
-import EarthquakeIndexPage from "main/pages/Earthquakes/EarthquakesIndexPage";
-import EarthquakeCreatePage from "main/pages/Earthquake/EarthquakesCreatePage";
+import EarthquakesIndexPage from "main/pages/Earthquakes/EarthquakesIndexPage";
+import EarthquakesRetrievePage from "main/pages/Earthquakes/EarthquakesRetrievePage";
 
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
 
@@ -65,6 +65,7 @@ function App() {
             </>
           )
         }
+
         {
           hasRole(currentUser, "ROLE_USER") && (
             <>
@@ -75,7 +76,7 @@ function App() {
         {
           hasRole(currentUser, "ROLE_ADMIN") && (
             <>
-              <Route exact path="/earthquakes/create" element={<EarthquakesCreatePage />} />
+              <Route exact path="/earthquakes/retrieve" element={<EarthquakesRetrievePage />} />
               <Route exact path="/earthquakes/list" element={<EarthquakesIndexPage />} />
             </>
           )
