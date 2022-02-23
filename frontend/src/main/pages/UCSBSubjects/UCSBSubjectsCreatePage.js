@@ -10,6 +10,7 @@ export default function UCSBSubjectsCreatePage() {
     url: "/api/ucsbsubject/post",
     method: "POST",
     params: {
+      id: ucsbSubject.id,
       subjectCode: ucsbSubject.subjectCode,
       subjectTranslation: ucsbSubject.subjectTranslation,
       deptCode: ucsbSubject.deptCode,
@@ -22,7 +23,8 @@ export default function UCSBSubjectsCreatePage() {
   const onSuccess = (ucsbSubject) => {
     toast(`New ucsbSubject Created - id: ${ucsbSubject.id} 
                                      subjectCode: ${ucsbSubject.subjectCode}
-                                     deptCode: ${ucsbSubject.subjectCode}
+                                     subjectTranslation: ${ucsbSubject.subjectTranslation}
+                                     deptCode: ${ucsbSubject.deptCode}
                                      collegeCode: ${ucsbSubject.collegeCode}
                                      relatedDeptCode: ${ucsbSubject.relatedDeptCode}
                                      inactive: ${ucsbSubject.inactive}`);
