@@ -1,7 +1,7 @@
 import React from 'react';
 
-import UCSBDatesTable from "main/components/UCSBSubjects/UCSBSubjectsTable";
-import { ucsbDatesFixtures } from 'fixtures/ucsbDatesFixtures';
+import UCSBSubjectsTable from "main/components/UCSBSubjects/UCSBSubjectsTable";
+import { ucsbSubjectsFixtures } from 'fixtures/ucsbSubjectsFixtures';
 
 export default {
     title: 'components/UCSBSubjects/UCSBSubjectsTable',
@@ -23,7 +23,7 @@ Empty.args = {
 export const ThreeSubjects = Template.bind({});
 
 ThreeSubjects.args = {
-    subjects: ucsbSubjectsFixtures.threeSubjecdts
+    subjects: ucsbSubjectsFixtures.threeSubjects
 };
 
 

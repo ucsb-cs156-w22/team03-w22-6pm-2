@@ -1,11 +1,11 @@
 import React from 'react';
 
-import UCSBDateForm from "main/components/UCSBSubjects/UCSBSubjectForm"
+import UCSBSubjectForm from "main/components/UCSBSubjects/UCSBSubjectForm"
 import { ucsbSubjectsFixtures } from 'fixtures/ucsbSubjectsFixtures';
 
 export default {
     title: 'components/UCSBSubjects/UCSBSubjectForm',
-    component: UCSBSubjecdtForm
+    component: UCSBSubjectForm
 };
 
 

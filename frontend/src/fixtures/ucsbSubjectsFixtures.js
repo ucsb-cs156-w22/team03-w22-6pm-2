@@ -6,7 +6,7 @@ const ucsbSubjectsFixtures = {
         "deptCode": "testDeptCode",
         "collegeCode": "testCollegeCode",
         "relatedDeptCode": "testRelatedDeptCode",
-        "inactive": true
+        "inactive": "true"
     },
     threeSubjects: [
         {
@@ -16,7 +16,7 @@ const ucsbSubjectsFixtures = {
             "deptCode": "testDeptCode",
             "collegeCode": "testCollegeCode",
             "relatedDeptCode": "testRelatedDeptCode",
-            "inactive": true
+            "inactive": "true"
         },
         {
             "id": 2,
@@ -25,7 +25,7 @@ const ucsbSubjectsFixtures = {
             "deptCode": "testDeptCode2",
             "collegeCode": "testCollegeCode2",
             "relatedDeptCode": "testRelatedDeptCode2",
-            "inactive": true
+            "inactive": "true"
         },
         {
             "id": 3,
@@ -34,7 +34,7 @@ const ucsbSubjectsFixtures = {
             "deptCode": "testDeptCode3",
             "collegeCode": "testCollegeCode3",
             "relatedDeptCode": "testRelatedDeptCode3",
-            "inactive": true
+            "inactive": "true"
         }
     ]
 };
