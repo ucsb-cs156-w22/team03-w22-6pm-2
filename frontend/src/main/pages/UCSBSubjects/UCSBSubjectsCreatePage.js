@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 export default function UCSBSubjectsCreatePage() {
 
   const objectToAxiosParams = (ucsbSubject) => ({
-    url: "/api/ucsbsubject/post",
+    url: "/api/ucsbsubjects/post",
     method: "POST",
     params: {
       id: ucsbSubject.id,
