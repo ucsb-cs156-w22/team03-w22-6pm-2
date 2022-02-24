@@ -10,7 +10,6 @@ export default function UCSBSubjectsCreatePage() {
     url: "/api/ucsbsubjects/post",
     method: "POST",
     params: {
-      id: ucsbSubject.id,
       subjectCode: ucsbSubject.subjectCode,
       subjectTranslation: ucsbSubject.subjectTranslation,
       deptCode: ucsbSubject.deptCode,
@@ -21,13 +20,7 @@ export default function UCSBSubjectsCreatePage() {
   });
 
   const onSuccess = (ucsbSubject) => {
-    toast(`New ucsbSubject Created - id: ${ucsbSubject.id} 
-                                     subjectCode: ${ucsbSubject.subjectCode}
-                                     subjectTranslation: ${ucsbSubject.subjectTranslation}
-                                     deptCode: ${ucsbSubject.deptCode}
-                                     collegeCode: ${ucsbSubject.collegeCode}
-                                     relatedDeptCode: ${ucsbSubject.relatedDeptCode}
-                                     inactive: ${ucsbSubject.inactive}`);
+    toast(`New ucsbSubject Created - id: ${ucsbSubject.id} subjectCode: ${ucsbSubject.subjectCode}`);
   }
 
   const mutation = useBackendMutation(
@@ -58,3 +51,11 @@ export default function UCSBSubjectsCreatePage() {
     </BasicLayout>
   )
 }
+
+/*
+subjectTranslation: ${ucsbSubject.subjectTranslation}
+                                     deptCode: ${ucsbSubject.deptCode}
+                                     collegeCode: ${ucsbSubject.collegeCode}
+                                     relatedDeptCode: ${ucsbSubject.relatedDeptCode}
+                                     inactive: ${ucsbSubject.inactive}
+                                     */
