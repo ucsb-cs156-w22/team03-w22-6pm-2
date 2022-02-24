@@ -99,7 +99,6 @@ public class UCSBSubjectsController extends ApiController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping("/post")
     public UCSBSubject postUCSBSubject(
-            @ApiParam("id") @RequestParam long id,
             @ApiParam("subjectCode") @RequestParam String subjectCode,
             @ApiParam("subjectTranslation") @RequestParam String subjectTranslation,
             @ApiParam("deptCode") @RequestParam String deptCode,
@@ -107,11 +106,10 @@ public class UCSBSubjectsController extends ApiController {
             @ApiParam("relatedDeptCode") @RequestParam String relatedDeptCode,
             @ApiParam("inactive") @RequestParam boolean inactive) {
         
-        log.info("id={}", id, "subjectCode={}", subjectCode, "subjectTranslation={}", subjectTranslation, "deptCode={}", deptCode,
+        log.info("subjectCode={}", subjectCode, "subjectTranslation={}", subjectTranslation, "deptCode={}", deptCode,
          "collegeCode={}", collegeCode, "relatedDeptCode={}", relatedDeptCode, "inactive={}", inactive);
 
         UCSBSubject ucsbSubject = new UCSBSubject();
-        ucsbSubject.setId(id);
         ucsbSubject.setSubjectCode(subjectCode);
         ucsbSubject.setSubjectTranslation(subjectTranslation);
         ucsbSubject.setDeptCode(deptCode);
