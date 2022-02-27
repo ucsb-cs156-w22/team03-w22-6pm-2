@@ -2,8 +2,7 @@ package edu.ucsb.cs156.example.controllers;
 
 import edu.ucsb.cs156.example.collections.EarthquakesCollection;
 import edu.ucsb.cs156.example.documents.EarthquakeFeature;
-import edu.ucsb.cs156.example.documents.EarthquakeFeatureCollection;
-import edu.ucsb.cs156.example.services.EarthquakeQueryService;
+//import edu.ucsb.cs156.example.services.EarthquakeQueryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.List;
+
 
 @Api(description = "Earthquake info")
 @RequestMapping("/api/earthquakes")
@@ -33,7 +32,7 @@ public class EarthquakeController extends ApiController {
     @Autowired
     ObjectMapper mapper;
 
-    @Autowired
+    /*@Autowired
     EarthquakeQueryService earthquakeQueryService;
     
     @ApiOperation(value = "Get earthquakes within a certain distance of UCSB's Storke Tower and above a certain magnitude, and add them to the MongoDB database")
@@ -45,12 +44,12 @@ public class EarthquakeController extends ApiController {
         ) throws JsonProcessingException {
             log.info("retrieveEarthquakes: dist={} minMag={}", dist, minMag);
             String results = earthquakeQueryService.getJSON(dist, minMag);
-            EarthquakeFeatureCollection collection = mapper.readValue(results, EarthquakeFeatureCollection.class);
+            EarthquakesCollection collection = mapper.readValue(results, EarthquakesCollection.class);
             List<EarthquakeFeature> features = collection.getFeatures();
             earthquakeCollection.saveAll(features);
 
             return ResponseEntity.ok().body(results);
-    }
+    }*/
     @ApiOperation(value = "List all earthquakes")
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
