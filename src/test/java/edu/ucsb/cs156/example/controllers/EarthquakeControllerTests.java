@@ -127,7 +127,7 @@ public class EarthquakeControllerTests extends ControllerTestCase {
                 assertEquals(expectedJson, responseString);
         }
 
-        @WithMockUser(roles = { "USER","ADMIN" })
+        @WithMockUser(roles = {"ADMIN" })
         @Test
         public void api_earthquakes_post__user_logged_in__storeone_adds_earthquake_to_collection() throws Exception {
 
@@ -188,31 +188,28 @@ public class EarthquakeControllerTests extends ControllerTestCase {
                                 .build();
 
                 
+                String minMag = "2";
+                String distance = "100";
 
-                String featuresAsJson = mapper.writeValueAsString(featureCollection);
+                String featuresAsJson = mapper.writeValueAsString(featureCollection);  
+                String savedFeaturesAsJson = mapper.writeValueAsString(lef);         
+                when(earthquakesCollection.saveAll(lef)).thenReturn(lef);
 
-                String savedFeaturesAsJson = mapper.writeValueAsString(features);
-                EarthquakeFeature savedFeature = mapper.readValue(savedFeaturesAsJson, EarthquakeFeature.class);
-                savedFeature.set_id("efgh5678");
-                
-
-                when(earthquakesCollection.save(eq(features))).thenReturn(savedFeature);
-
-                when(earthquakeQueryService.getJSON(eq("20"), eq("2.2"))).thenReturn(featuresAsJson);
+                when(earthquakeQueryService.getJSON(distance, minMag)).thenReturn(featuresAsJson);
 
 
                 
                 // act
                 MvcResult response = mockMvc.perform(
-                                post("/api/redditposts/retrieve?distance=20&minMag=2.2")
+                                post(String.format("/api/earthquakes/retrieve?distance=%s&minMag=%s",distance,minMag))
                                 .with(csrf()))
                                 .andExpect(status().isOk())
                                 .andReturn();
 
                 // assert
 
-                verify(earthquakeQueryService, times(1)).getJSON(eq("20"),eq("2.2"));
-                verify(earthquakesCollection, times(1)).save(eq(features));
+                verify(earthquakeQueryService, times(1)).getJSON(distance,minMag);
+                verify(earthquakesCollection, times(1)).saveAll(lef);
                 String responseString = response.getResponse().getContentAsString();
                 assertEquals(savedFeaturesAsJson, responseString);
         }
