@@ -18,7 +18,7 @@ function UCSBSubjectForm({ initialUCSBSubject, submitAction, buttonLabel="Create
 
     const navigate = useNavigate();
 
-
+    const boolean_regex = /(true | false)/;
 
     return (
 
@@ -39,13 +39,13 @@ function UCSBSubjectForm({ initialUCSBSubject, submitAction, buttonLabel="Create
             )}
 
             <Form.Group className="mb-3" >
-                <Form.Label htmlFor="subjectCode">Subject Code</Form.Label>
+                <Form.Label htmlFor="subjectCode">SubjectCode</Form.Label>
                 <Form.Control
                     data-testid="UCSBSubjectForm-subjectCode"
                     id="subjectCode"
                     type="text"
                     isInvalid={Boolean(errors.subjectCode)}
-                    {...register("subjectCode", { required: "SubjectCode is required" })}
+                    {...register("subjectCode", { required: "SubjectCode is required." })}
                 />
                 <Form.Control.Feedback type="invalid">
                     {errors.subjectCode?.message}
@@ -55,7 +55,7 @@ function UCSBSubjectForm({ initialUCSBSubject, submitAction, buttonLabel="Create
             <Form.Group className="mb-3" >
                 <Form.Label htmlFor="subjectTranslation">SubjectTranslation</Form.Label>
                 <Form.Control
-                    data-testid="UCSBSubjectForm-subjecdtTranslation"
+                    data-testid="UCSBSubjectForm-subjectTranslation"
                     id="subjectTranslation"
                     type="text"
                     isInvalid={Boolean(errors.subjectTranslation)}
@@ -75,7 +75,7 @@ function UCSBSubjectForm({ initialUCSBSubject, submitAction, buttonLabel="Create
                     id="deptCode"
                     type="text"
                     isInvalid={Boolean(errors.deptCode)}
-                    {...register("deptCode", { required: "deptCode is required." })}
+                    {...register("deptCode", { required: "Department Code is required." })}
                 />
                 <Form.Control.Feedback type="invalid">
                     {errors.deptCode?.message}
@@ -86,11 +86,11 @@ function UCSBSubjectForm({ initialUCSBSubject, submitAction, buttonLabel="Create
             <Form.Group className="mb-3" >
                 <Form.Label htmlFor="collegeCode">CollegeCode</Form.Label>
                 <Form.Control
-                    data-testid="UCSBSubjectForm-CollegeCode"
+                    data-testid="UCSBSubjectForm-collegeCode"
                     id="collegeCode"
                     type="text"
                     isInvalid={Boolean(errors.collegeCode)}
-                    {...register("collegeCode", { required: "collegeCode is required." })}
+                    {...register("collegeCode", { required: "CollegeCode is required." })}
                 />
                 <Form.Control.Feedback type="invalid">
                     {errors.collegeCode?.message}
@@ -105,7 +105,7 @@ function UCSBSubjectForm({ initialUCSBSubject, submitAction, buttonLabel="Create
                     id="relatedDeptCode"
                     type="text"
                     isInvalid={Boolean(errors.relatedDeptCode)}
-                    {...register("relatedDeptCode", { required: "relatedDeptCode is required." })}
+                    {...register("relatedDeptCode", { required: "RelatedDeptCode is required." })}
                 />
                 <Form.Control.Feedback type="invalid">
                     {errors.relatedDeptCode?.message}
@@ -119,10 +119,11 @@ function UCSBSubjectForm({ initialUCSBSubject, submitAction, buttonLabel="Create
                     id="inactive"
                     type="text"
                     isInvalid={Boolean(errors.inative)}
-                    {...register("inactive", { required: "inactive is required." })}
+                    {...register("inactive", { required: true, pattern: boolean_regex})}
                 />
                 <Form.Control.Feedback type="invalid">
-                    {errors.inactive?.message}
+                    {errors.inactive && 'Inactive is required.'}
+                    {errors.inactive?.type === 'pattern' && 'Inactive must be a Boolean'}
                 </Form.Control.Feedback>
             </Form.Group>
 
