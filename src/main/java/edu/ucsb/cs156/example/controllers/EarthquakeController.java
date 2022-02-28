@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@Api(description = "Earthquake info")
+@Api(description = "Earthquakes info")
 @RequestMapping("/api/earthquakes")
 @RestController
 @Slf4j
@@ -41,16 +41,19 @@ public class EarthquakeController extends ApiController {
         Iterable<EarthquakeFeature> quakes = earthquakesCollection.findAll();
         return quakes;
     }
+
     @ApiOperation(value = "Purge all earthquakes")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/purge")
-    public void purgeAll() {
+    @PostMapping("/purge")
+    public ResponseEntity<String> purgeAll() {
         earthquakesCollection.deleteAll();
+        return ResponseEntity.ok().body(String.format("Purged All Earthquakes"));
     }
+
     @Autowired
     EarthquakeQueryService earthquakeQueryService;
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "Store one earthquake from USGS Earthquake API", notes = "")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/retrieve")
     public ResponseEntity<List<EarthquakeFeature>> getEarthquake(
             @ApiParam("distance in km, e.g. 100") @RequestParam String distance,
@@ -63,5 +66,6 @@ public class EarthquakeController extends ApiController {
         List<EarthquakeFeature> features = featureCollection.getFeatures();
         List<EarthquakeFeature> featuresSaved = earthquakesCollection.saveAll(features);
         return ResponseEntity.ok().body(featuresSaved);
-    }
+    }  
+
 }

@@ -31,6 +31,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import lombok.With;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
@@ -212,6 +213,20 @@ public class EarthquakeControllerTests extends ControllerTestCase {
                 verify(earthquakesCollection, times(1)).saveAll(lef);
                 String responseString = response.getResponse().getContentAsString();
                 assertEquals(savedFeaturesAsJson, responseString);
+        }
+
+        @WithMockUser(roles = { "USER","ADMIN" })
+        @Test
+        public void api_purge_earthquake_is_void() throws Exception {
+
+                MvcResult response = mockMvc.perform(post("/api/earthquakes/purge")
+                                                .with(csrf()))
+                                                .andExpect(status().isOk()).andReturn();
+
+                verify(earthquakesCollection, times(1)).deleteAll(); 
+                String responseString = response.getResponse().getContentAsString();
+                assertEquals("Purged All Earthquakes",responseString); 
+                             
         }
 
 }
