@@ -8,18 +8,18 @@ import { Col } from "react-bootstrap";
 
 export default function CollegiateSubredditsCreatePage() {
 
-  const objectToAxiosParams = (collegiateSubreddit) => ({
+  const objectToAxiosParams = (CollegiateSubreddit) => ({
     url: "/api/CollegiateSubreddits/post",
     method: "POST",
     params: {
-      name: collegiateSubreddit.name,
-      location: collegiateSubreddit.location,
-      subreddit: collegiateSubreddit.subreddit
+      name: CollegiateSubreddit.name,
+      location: CollegiateSubreddit.location,
+      subreddit: CollegiateSubreddit.subreddit
     }
   });
 
-  const onSuccess = (collegiateSubreddit) => {
-    toast(`New collegiateSubreddit Created - id: ${collegiateSubreddit.id} name: ${collegiateSubreddit.name}`);
+  const onSuccess = (CollegiateSubreddit) => {
+    toast(`New CollegiateSubreddit Created - id: ${CollegiateSubreddit.id} name: ${CollegiateSubreddit.name}`);
   }
 
   const mutation = useBackendMutation(
@@ -36,7 +36,7 @@ export default function CollegiateSubredditsCreatePage() {
   }
 
   if (isSuccess) {
-    return <Navigate to="/CollegiateSubreddits/list" />
+    return <Navigate to="/collegiatesubreddits/list" />
   }
 
   return (

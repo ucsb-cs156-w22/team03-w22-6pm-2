@@ -98,8 +98,8 @@ describe("CollegiateSubredditsCreatePage tests", () => {
             "subreddit": "UCSantaBarbara"
         });
 
-        expect(mockToast).toBeCalledWith("New collegiateSubreddit Created - id: 17 name: UCSB");
-        expect(mockNavigate).toBeCalledWith({ "to": "/CollegiateSubreddits/list" });
+        expect(mockToast).toBeCalledWith("New CollegiateSubreddit Created - id: 17 name: UCSB");
+        expect(mockNavigate).toBeCalledWith({ "to": "/collegiatesubreddits/list" });
     });
 
 });

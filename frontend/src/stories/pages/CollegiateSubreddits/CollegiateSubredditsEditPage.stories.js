@@ -1,16 +1,13 @@
 
-// import React from 'react';
+import React from 'react';
 
-// import CollegiateSubredditsEditPage from "main/pages/CollegiateSubreddits/CollegiateSubredditsEditPage";
+import CollegiateSubredditsEditPage from "main/pages/CollegiateSubreddits/CollegiateSubredditsEditPage";
 
-// export default {
-//     title: 'pages/CollegiateSubreddits/CollegiateSubredditsEditPage',
-//     component: CollegiateSubredditsEditPage
-// };
+export default {
+    title: 'pages/CollegiateSubreddits/CollegiateSubredditsEditPage',
+    component: CollegiateSubredditsEditPage
+};
 
-// const Template = () => <CollegiateSubredditsEditPage />;
+const Template = () => <CollegiateSubredditsEditPage />;
 
-// export const Default = Template.bind({});
-
-
-
+export const Default = Template.bind({});
