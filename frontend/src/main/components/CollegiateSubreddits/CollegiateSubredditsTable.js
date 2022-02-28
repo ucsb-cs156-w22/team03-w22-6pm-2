@@ -17,7 +17,7 @@ export default function CollegiateSubredditsTable({ subreddits, currentUser }) {
     const deleteMutation = useBackendMutation(
         cellToAxiosParamsDelete,
         { onSuccess: onDeleteSuccess },
-        ["/api/collegiatesubreddits/all"]
+        ["/api/CollegiateSubreddits/all"]
     );
     // Stryker enable all 
 
