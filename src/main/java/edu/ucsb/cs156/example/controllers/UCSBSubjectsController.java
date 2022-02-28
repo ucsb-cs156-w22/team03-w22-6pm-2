@@ -51,7 +51,7 @@ public class UCSBSubjectsController extends ApiController {
     ObjectMapper mapper;
 
     @ApiOperation(value = "List all ucsb subjects")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
     public Iterable<UCSBSubject> allUCSBSubjects() {
         Iterable<UCSBSubject> ucsbSubject = ucsbSubjectRepository.findAll();
@@ -75,12 +75,11 @@ public class UCSBSubjectsController extends ApiController {
     }
 
     @ApiOperation(value = "Update a single ucsbSubject")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("")
-    public ResponseEntity<String> putTodoById(
+    public ResponseEntity<String> updateUCSBSubject(
             @ApiParam("id") @RequestParam Long id,
-            @RequestBody @Valid UCSBSubject incomingUCSBSubject) throws JsonProcessingException {
-
+            @RequestBody @Valid UCSBSubject incoming) throws JsonProcessingException {
         UCSBSubjectOrError uoe = new UCSBSubjectOrError(id);
 
         uoe = doesUCSBSubjectExist(uoe);
@@ -88,15 +87,22 @@ public class UCSBSubjectsController extends ApiController {
             return uoe.error;
         }
 
-        ucsbSubjectRepository.save(incomingUCSBSubject);
+        UCSBSubject oldSubject = uoe.ucsbSubject;
+        oldSubject.setSubjectCode(incoming.getSubjectCode());
+        oldSubject.setSubjectTranslation(incoming.getSubjectTranslation());
+        oldSubject.setDeptCode(incoming.getDeptCode());
+        oldSubject.setCollegeCode(incoming.getCollegeCode());
+        oldSubject.setRelatedDeptCode(incoming.getRelatedDeptCode());
+        oldSubject.setInactive(incoming.isInactive());
 
-        String body = mapper.writeValueAsString(incomingUCSBSubject);
+        ucsbSubjectRepository.save(oldSubject);
+
+        String body = mapper.writeValueAsString(oldSubject);
         return ResponseEntity.ok().body(body);
     }
 
-
     @ApiOperation(value = "Add new subject to database")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/post")
     public UCSBSubject postUCSBSubject(
             @ApiParam("subjectCode") @RequestParam String subjectCode,
