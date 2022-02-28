@@ -1,9 +1,11 @@
 package edu.ucsb.cs156.example.controllers;
 
+
 import edu.ucsb.cs156.example.collections.EarthquakesCollection;
 import edu.ucsb.cs156.example.documents.EarthquakeFeature;
 import edu.ucsb.cs156.example.documents.EarthquakeFeatureCollection;
 import edu.ucsb.cs156.example.services.EarthquakeQueryService;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
+
 
 @Api(description = "Earthquake info")
 @RequestMapping("/api/earthquakes")
