@@ -5,11 +5,11 @@ import edu.ucsb.cs156.example.collections.EarthquakesCollection;
 import edu.ucsb.cs156.example.documents.EarthquakeFeature;
 import edu.ucsb.cs156.example.documents.EarthquakeFeatureCollection;
 import edu.ucsb.cs156.example.services.EarthquakeQueryService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
+import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,7 +30,7 @@ import java.util.List;
 @Slf4j
 public class EarthquakeController extends ApiController {
     @Autowired
-    EarthquakesCollection earthquakeCollection;
+    EarthquakesCollection earthquakesCollection;
 
 
     @Autowired
@@ -39,32 +39,33 @@ public class EarthquakeController extends ApiController {
     @Autowired
     EarthquakeQueryService earthquakeQueryService;
     
-    @ApiOperation(value = "Get earthquakes within a certain distance of UCSB's Storke Tower and above a certain magnitude, and add them to the MongoDB database")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/retrieve")
-    public ResponseEntity<String> retrieveEarthquakes(
-            @ApiParam("distance in km, e.g. 100") @RequestParam String dist,
-            @ApiParam("minimum magnitude, e.g. 2.5") @RequestParam String minMag
-        ) throws JsonProcessingException {
-            log.info("retrieveEarthquakes: dist={} minMag={}", dist, minMag);
-            String results = earthquakeQueryService.getJSON(dist, minMag);
-            EarthquakeFeatureCollection collection = mapper.readValue(results, EarthquakeFeatureCollection.class);
-            List<EarthquakeFeature> features = collection.getFeatures();
-            earthquakeCollection.saveAll(features);
-
-            return ResponseEntity.ok().body(results);
-    }
     @ApiOperation(value = "List all earthquakes")
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
     public Iterable<EarthquakeFeature> allEarthQuakes() {
-        Iterable<EarthquakeFeature> quakes = earthquakeCollection.findAll();
+        Iterable<EarthquakeFeature> quakes = earthquakesCollection.findAll();
         return quakes;
     }
     @ApiOperation(value = "Purge all earthquakes")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/purge")
     public void purgeAll() {
-        earthquakeCollection.deleteAll();
+        earthquakesCollection.deleteAll();
+    }
+    @Autowired
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "Store one earthquake from USGS Earthquake API", notes = "")
+    @PostMapping("/retrieve")
+    public ResponseEntity<List<EarthquakeFeature>> getEarthquake(
+            @ApiParam("distance in km, e.g. 100") @RequestParam String distance,
+            @ApiParam("minimum magnitude, e.g 2.5") @RequestParam String minMag
+            ) throws JsonProcessingException {
+        log.info("getEarthquake: distance={} minMag ={}", distance, minMag);
+        
+        String featuresAsJSON = earthquakeQueryService.getJSON(distance, minMag);
+        EarthquakeFeatureCollection featureCollection = mapper.readValue(featuresAsJSON, EarthquakeFeatureCollection.class); 
+        List<EarthquakeFeature> features = featureCollection.getFeatures();
+        List<EarthquakeFeature> featuresSaved = earthquakesCollection.saveAll(features);
+        return ResponseEntity.ok().body(featuresSaved);
     }
 }

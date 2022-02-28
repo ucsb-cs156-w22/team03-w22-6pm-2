@@ -16,8 +16,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class EarthquakeFeatureCollection {
     private String type;
-    private Metadata metadata;
-    private List<Feature> features;
+    private EarthquakeMetadata metadata;
+    private List<EarthquakeFeature> features;
     //IDK IF BELOW SHOULD BE HERE
     //ObjectMapper mapper = new ObjectMapper(); 
     //mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
