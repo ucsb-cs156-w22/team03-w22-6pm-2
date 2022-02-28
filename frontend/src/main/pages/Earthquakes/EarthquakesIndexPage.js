@@ -1,4 +1,4 @@
-/*
+
 import React from 'react'
 import { useBackend } from 'main/utils/useBackend';
 
@@ -26,8 +26,8 @@ export default function EarthquakesIndexPage() {
       </div>
     </BasicLayout>
   )
-}*/
-
+}
+/*
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 
 export default function EarthquakesIndexPage() {
@@ -41,4 +41,4 @@ export default function EarthquakesIndexPage() {
       </div>
     </BasicLayout>
   )
-}
+}*/
