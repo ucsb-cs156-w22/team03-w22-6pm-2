@@ -15,6 +15,7 @@ export default function EarthquakesIndexPage() {
       { method: "GET", url: "/api/earthquakes/all" },
       []
     );
+
     
 
   function Purge_Button (){
@@ -34,6 +35,7 @@ export default function EarthquakesIndexPage() {
   return (
     <BasicLayout>
       <div className="pt-2">
+
         <h1>Earthquakes</h1>
         <EarthquakesTable earthquakes={earthquakes} currentUser={currentUser} />
         <Purge_Button/>
@@ -42,11 +44,5 @@ export default function EarthquakesIndexPage() {
     </BasicLayout>
   )
 }
-
-
-
-
-
-
 
 

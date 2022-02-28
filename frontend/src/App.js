@@ -11,6 +11,8 @@ import UCSBDatesIndexPage from "main/pages/UCSBDates/UCSBDatesIndexPage";
 import UCSBDatesCreatePage from "main/pages/UCSBDates/UCSBDatesCreatePage";
 import UCSBDatesEditPage from "main/pages/UCSBDates/UCSBDatesEditPage";
 
+import UCSBSubjectsIndexPage from "main/pages/UCSBSubjects/UCSBSubjectsIndexPage";
+import UCSBSubjectsCreatePage from "main/pages/UCSBSubjects/UCSBSubjectsCreatePage";
 
 import CollegiateSubredditsIndexPage from "main/pages/CollegiateSubreddits/CollegiateSubredditsIndexPage";
 import CollegiateSubredditsCreatePage from "main/pages/CollegiateSubreddits/CollegiateSubredditsCreatePage";
@@ -26,6 +28,8 @@ import UCSBSubjectsCreatePage from "main/pages/UCSBSubjects/UCSBSubjectsCreatePa
 import StudentsIndexPage from "main/pages/Students/StudentsIndexPage";
 import StudentsCreatePage from "main/pages/Students/StudentsCreatePage";
 
+import EarthquakesIndexPage from "main/pages/Earthquakes/EarthquakesIndexPage";
+import EarthquakesRetrievePage from "main/pages/Earthquakes/EarthquakesRetrievePage";
 
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
 
@@ -80,14 +84,7 @@ function App() {
         {
           hasRole(currentUser, "ROLE_ADMIN") && (
             <>
-              <Route exact path="/ucsbdates/edit/:id" element={<UCSBDatesEditPage />} />
-              <Route exact path="/ucsbdates/create" element={<UCSBDatesCreatePage />} />
-            </>
-          )
-        }
-        {
-          hasRole(currentUser, "ROLE_USER") && (
-            <>
+              <Route exact path="/earthquakes/retrieve" element={<EarthquakesRetrievePage />} />
               <Route exact path="/earthquakes/list" element={<EarthquakesIndexPage />} />
               <Route exact path="/earthquakes/retrieve" element={<EarthquakesRetrievePage />} />
             </>
@@ -107,6 +104,24 @@ function App() {
             </>
           )
         }
+
+        {
+          hasRole(currentUser, "ROLE_ADMIN") && (
+            <>
+              <Route exact path="/ucsbsubjects/edit/:id" element={<UCSBSubjectsEditPage />} />
+              <Route exact path="/ucsbsubjects/list" element={<UCSBSubjectsIndexPage />} />
+              <Route exact path="/ucsbsubjects/create" element={<UCSBSubjectsCreatePage />} />
+            </>            
+          )
+        }
+        {
+          hasRole(currentUser, "ROLE_USER") && (
+            <>
+              <Route exact path="ucsbsubjects/list" element={<UCSBSubjectsIndexPage />} />
+            </>
+          )
+        }
+
 
         {
           hasRole(currentUser, "ROLE_USER") && (
