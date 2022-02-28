@@ -17,13 +17,13 @@ const Template = (args) => {
 export const Empty = Template.bind({});
 
 Empty.args = {
-    dates: []
+    subjects: []
 };
 
 export const ThreeSubjects = Template.bind({});
 
 ThreeSubjects.args = {
-    dates: ucsbSubjectsFixtures.threeSubjects
+    subjects: ucsbSubjectsFixtures.threeSubjects
 };
 
 
