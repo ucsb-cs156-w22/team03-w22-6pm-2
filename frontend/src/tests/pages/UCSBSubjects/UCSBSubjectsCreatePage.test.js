@@ -103,7 +103,7 @@ describe("UCSBSubjectsCreatePage tests", () => {
             "subjectCode": "MATH",
             "subjectTranslation": "Math",
             "deptCode": "MATH",
-            "collegeCode": "CoE",
+            "collegeCode": "L&S",
             "relatedDeptCode": "null",
             "inactive": "false"
         });

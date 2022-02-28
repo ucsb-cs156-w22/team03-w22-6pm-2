@@ -1,4 +1,4 @@
-import { render, waitFor, fireEvent } from "@testing-library/react";
+import { render, waitFor, fireEvent, getAllByText } from "@testing-library/react";
 import UCSBSubjectForm from "main/components/UCSBSubjects/UCSBSubjectForm";
 import { ucsbSubjectsFixtures } from "fixtures/ucsbSubjectsFixtures";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -54,12 +54,12 @@ describe("UCSBSubjectForm tests", () => {
 
         fireEvent.click(submitButton);
 
-        await waitFor(() => expect(getByText(/Inactive must be a Boolean/)).toBeInTheDocument());
+        await waitFor(() => expect(getByText(/Inactive must be a Boolean./)).toBeInTheDocument());
     });
 
     test("Correct Error messsages on missing input", async () => {
 
-        const { getByTestId, getByText } = render(
+        const { getByTestId, getByText, getAllByText } = render(
             <Router  >
                 <UCSBSubjectForm />
             </Router>
@@ -69,11 +69,11 @@ describe("UCSBSubjectForm tests", () => {
 
         fireEvent.click(submitButton);
 
-        await waitFor(() => expect(getByText(/SubjectCode is required./)).toBeInTheDocument());
+        await waitFor(() => expect(getAllByText(/SubjectCode is required./)[0]).toBeInTheDocument());
         expect(getByText(/SubjectTranslation is required./)).toBeInTheDocument();
-        expect(getByText(/CollegeCode is required./)).toBeInTheDocument();
-        expect(getByText(/DeptCode is required./)).toBeInTheDocument();
-        expect(getByText(/RelatedDeptCode is required./)).toBeInTheDocument();
+        expect(getAllByText(/CollegeCode is required./)[0]).toBeInTheDocument();
+        expect(getAllByText(/DeptCode is required./)[0]).toBeInTheDocument();
+        expect(getAllByText(/RelatedDeptCode is required./)[0]).toBeInTheDocument();
         expect(getByText(/Inactive is required./)).toBeInTheDocument();
 
     });

@@ -74,34 +74,7 @@ public class UCSBSubjectsController extends ApiController {
         return ResponseEntity.ok().body(body);
     }
 
-    @ApiOperation(value = "Update a single ucsbSubject")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PutMapping("")
-    public ResponseEntity<String> updateUCSBSubject(
-            @ApiParam("id") @RequestParam Long id,
-            @RequestBody @Valid UCSBSubject incoming) throws JsonProcessingException {
-        UCSBSubjectOrError uoe = new UCSBSubjectOrError(id);
-
-        uoe = doesUCSBSubjectExist(uoe);
-        if (uoe.error != null) {
-            return uoe.error;
-        }
-
-        UCSBSubject oldSubject = uoe.ucsbSubject;
-        oldSubject.setSubjectCode(incoming.getSubjectCode());
-        oldSubject.setSubjectTranslation(incoming.getSubjectTranslation());
-        oldSubject.setDeptCode(incoming.getDeptCode());
-        oldSubject.setCollegeCode(incoming.getCollegeCode());
-        oldSubject.setRelatedDeptCode(incoming.getRelatedDeptCode());
-        oldSubject.setInactive(incoming.isInactive());
-
-        ucsbSubjectRepository.save(oldSubject);
-
-        String body = mapper.writeValueAsString(oldSubject);
-        return ResponseEntity.ok().body(body);
-    }
-
-    @ApiOperation(value = "Add new subject to database")
+    @ApiOperation(value = "Create a new subject")
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/post")
     public UCSBSubject postUCSBSubject(
@@ -140,6 +113,33 @@ public class UCSBSubjectsController extends ApiController {
 
         ucsbSubjectRepository.deleteById(id);
         return ResponseEntity.ok().body(String.format("UCSBSubject with id %d deleted", id));
+    }
+
+    @ApiOperation(value = "Update a single ucsbSubject")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("")
+    public ResponseEntity<String> updateUCSBSubject(
+            @ApiParam("id") @RequestParam Long id,
+            @RequestBody @Valid UCSBSubject incoming) throws JsonProcessingException {
+        UCSBSubjectOrError uoe = new UCSBSubjectOrError(id);
+
+        uoe = doesUCSBSubjectExist(uoe);
+        if (uoe.error != null) {
+            return uoe.error;
+        }
+
+        UCSBSubject oldSubject = uoe.ucsbSubject;
+        oldSubject.setSubjectCode(incoming.getSubjectCode());
+        oldSubject.setSubjectTranslation(incoming.getSubjectTranslation());
+        oldSubject.setDeptCode(incoming.getDeptCode());
+        oldSubject.setCollegeCode(incoming.getCollegeCode());
+        oldSubject.setRelatedDeptCode(incoming.getRelatedDeptCode());
+        oldSubject.setInactive(incoming.isInactive());
+
+        ucsbSubjectRepository.save(oldSubject);
+
+        String body = mapper.writeValueAsString(oldSubject);
+        return ResponseEntity.ok().body(body);
     }
 
     public UCSBSubjectOrError doesUCSBSubjectExist(UCSBSubjectOrError uoe) {

@@ -140,7 +140,7 @@ describe("UCSBSubjectsEditPage tests", () => {
                 </QueryClientProvider>
             );
 
-            await waitFor(() => expect(getByTestId("UCSBDateForm-quarterYYYYQ")).toBeInTheDocument());
+            await waitFor(() => expect(getByTestId("UCSBSubjectForm-subjectCode")).toBeInTheDocument());
 
             const idField = getByTestId("UCSBSubjectForm-id");
             const subjectCodeField = getByTestId("UCSBSubjectForm-subjectCode");
@@ -161,7 +161,7 @@ describe("UCSBSubjectsEditPage tests", () => {
 
             expect(submitButton).toBeInTheDocument();
 
-            fireEvent.change(subjectCodeField, { target: { value: 'CMPSC' } });
+            fireEvent.change(subjectCodeField, { target: { value: 'apple' } });
             fireEvent.change(subjectTranslationField, { target: { value: 'Computer Science' } });
             fireEvent.change(deptCodeField, { target: { value: 'CMPSC' } });
             fireEvent.change(collegeCodeField, { target: { value: 'CoE' } });
@@ -171,14 +171,14 @@ describe("UCSBSubjectsEditPage tests", () => {
             fireEvent.click(submitButton);
 
             await waitFor(() => expect(mockToast).toBeCalled);
-            expect(mockToast).toBeCalledWith("UCSBSubject Updated - id: 17 subjectCode: CMPSC");
+            expect(mockToast).toBeCalledWith("UCSBSubject Updated - id: 17 subjectCode: apple");
             expect(mockNavigate).toBeCalledWith({ "to": "/ucsbsubjects/list" });
 
             expect(axiosMock.history.put.length).toBe(1); // times called
             expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
             expect(axiosMock.history.put[0].data).toBe(JSON.stringify({
                 id: "17",
-                subjectCode: "CMPSC",
+                subjectCode: "apple",
                 subjectTranslation: "Computer Science",
                 deptCode: "CMPSC",
                 collegeCode: "CoE",

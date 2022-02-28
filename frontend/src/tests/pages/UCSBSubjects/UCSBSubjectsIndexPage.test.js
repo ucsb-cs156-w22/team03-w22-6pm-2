@@ -87,9 +87,9 @@ describe("UCSBSubjectsIndexPage tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); });
-        expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
-        expect(getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent("3");
+        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2"); });
+        expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
+        expect(getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent("4");
 
     });
 
@@ -106,9 +106,9 @@ describe("UCSBSubjectsIndexPage tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); });
-        expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
-        expect(getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent("3");
+        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2"); });
+        expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
+        expect(getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent("4");
 
     });
 
@@ -142,7 +142,7 @@ describe("UCSBSubjectsIndexPage tests", () => {
 
         const queryClient = new QueryClient();
         axiosMock.onGet("/api/ucsbsubjects/all").reply(200, ucsbSubjectsFixtures.threeSubjects);
-        axiosMock.onDelete("/api/ucsbsubjects").reply(200, "UCSBSubject with id 1 was deleted");
+        axiosMock.onDelete("/api/ucsbsubjects").reply(200, "UCSBSubject with id 2 was deleted");
 
 
         const { getByTestId } = render(
@@ -155,7 +155,7 @@ describe("UCSBSubjectsIndexPage tests", () => {
 
         await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toBeInTheDocument(); });
 
-       expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); 
+       expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2"); 
 
 
         const deleteButton = getByTestId(`${testId}-cell-row-0-col-Delete-button`);
@@ -163,7 +163,7 @@ describe("UCSBSubjectsIndexPage tests", () => {
        
         fireEvent.click(deleteButton);
 
-        await waitFor(() => { expect(mockToast).toBeCalledWith("UCSBSubject with id 1 was deleted") });
+        await waitFor(() => { expect(mockToast).toBeCalledWith("UCSBSubject with id 2 was deleted") });
 
     });
 
