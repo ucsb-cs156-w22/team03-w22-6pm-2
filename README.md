@@ -1,8 +1,14 @@
-# demo-spring-react-example-v2: dsre-v2
+[![codecov](https://codecov.io/gh/ucsb-cs156-w22/team03-w22-6pm-2/branch/main/graph/badge.svg?token=AupzFSG8Jp)](https://codecov.io/gh/ucsb-cs156-w22/team03-w22-6pm-2)
+
+# team03-w22-6pm-2: dsre-v2
+
+Deployment is here:
+* Production: https://team03-w22-6pm-2.herokuapp.com/
+* QA: https://team03-w22-6pm-2-qa.herokuapp.com/
 
 Storybook is here:
-* Production: <https://ucsb-cs156-w22.github.io/STARTER-team03-docs/>
-* QA:  <https://ucsb-cs156-w22.github.io/STARTER-team03-docs-qa/>
+* Production: <https://ucsb-cs156-w22.github.io/team03-w22-6pm-2-docs>
+* QA:  <https://ucsb-cs156-w22.github.io/team03-w22-6pm-2-docs-qa>
 
 The GitHub actions script to deploy the Storybook to QA requires some configuration; see [docs/github-actions.md](docs/github-actions.md) for details.
 
