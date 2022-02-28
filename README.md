@@ -2,6 +2,10 @@
 
 # team03-w22-6pm-2: dsre-v2
 
+Deployment is here:
+* Production: https://team03-w22-6pm-2.herokuapp.com/
+* QA: https://team03-w22-6pm-2-qa.herokuapp.com/
+
 Storybook is here:
 * Production: <https://ucsb-cs156-w22.github.io/team03-w22-6pm-2-docs>
 * QA:  <https://ucsb-cs156-w22.github.io/team03-w22-6pm-2-docs-qa>
