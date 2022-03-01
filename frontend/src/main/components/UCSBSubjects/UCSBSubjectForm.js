@@ -119,7 +119,7 @@ function UCSBSubjectForm({ initialUCSBSubject, submitAction, buttonLabel="Create
                     id="inactive"
                     type="text"
                     isInvalid={Boolean(errors.inactive)}
-                    {...register("inactive", { required: "Inactive is required.", pattern: bool_regex })}
+                    {...register("inactive", { required: true, pattern: bool_regex })}
                 />
                 <Form.Control.Feedback type="invalid">
                     {errors.inactive && 'Inactive is required. '}
