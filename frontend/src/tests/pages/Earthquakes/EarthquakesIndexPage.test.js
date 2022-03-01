@@ -1,16 +1,15 @@
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import {  render, waitFor,fireEvent } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
-import CollegiateSubredditsIndexPage from "main/pages/CollegiateSubreddits/CollegiateSubredditsIndexPage";
+import EarthquakesIndexPage from "main/pages/Earthquakes/EarthquakesIndexPage";
 
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
-import { studentFixtures, collegiateSubredditsFixtures } from "fixtures/collegiateSubredditsFixtures";
+import { earthquakesFixtures } from "fixtures/earthquakesFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 import mockConsole from "jest-mock-console";
-
 
 const mockToast = jest.fn();
 jest.mock('react-toastify', () => {
@@ -22,11 +21,11 @@ jest.mock('react-toastify', () => {
     };
 });
 
-describe("CollegiateSubredditsIndexPage tests", () => {
+describe("EarthquakesIndexPage tests", () => {
 
     const axiosMock =new AxiosMockAdapter(axios);
 
-    const testId = "CollegiateSubredditsTable";
+    const testId = "EarthquakesTable";
 
     const setupUserOnly = () => {
         axiosMock.reset();
@@ -45,12 +44,12 @@ describe("CollegiateSubredditsIndexPage tests", () => {
     test("renders without crashing for regular user", () => {
         setupUserOnly();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/CollegiateSubreddits/all").reply(200, []);
+        axiosMock.onGet("/api/earthquakes/all").reply(200, []);
 
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <CollegiateSubredditsIndexPage />
+                    <EarthquakesIndexPage />
                 </MemoryRouter>
             </QueryClientProvider>
         );
@@ -61,12 +60,12 @@ describe("CollegiateSubredditsIndexPage tests", () => {
     test("renders without crashing for admin user", () => {
         setupAdminUser();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/CollegiateSubreddits/all").reply(200, []);
+        axiosMock.onGet("/api/earthquakes/all").reply(200, []);
 
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <CollegiateSubredditsIndexPage />
+                    <EarthquakesIndexPage />
                 </MemoryRouter>
             </QueryClientProvider>
         );
@@ -74,54 +73,34 @@ describe("CollegiateSubredditsIndexPage tests", () => {
 
     });
 
-    test("renders two subreddits without crashing for regular user", async () => {
+    test("renders one earthquake without crashing for regular user", async () => {
         setupUserOnly();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/CollegiateSubreddits/all").reply(200, collegiateSubredditsFixtures.twoSubreddits);
+        axiosMock.onGet("/api/earthquakes/all").reply(200, earthquakesFixtures.oneEarthquake);
 
         const { getByTestId } = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <CollegiateSubredditsIndexPage />
+                    <EarthquakesIndexPage />
                 </MemoryRouter>
             </QueryClientProvider>
         );
 
-        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); });
-        expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
-
-    });
-
-    test("renders two subreddits without crashing for admin user", async () => {
-        setupAdminUser();
-        const queryClient = new QueryClient();
-        axiosMock.onGet("/api/CollegiateSubreddits/all").reply(200, collegiateSubredditsFixtures.twoSubreddits);
-
-        const { getByTestId } = render(
-            <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <CollegiateSubredditsIndexPage />
-                </MemoryRouter>
-            </QueryClientProvider>
-        );
-
-        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); });
-        expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
-
+        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(1); });
     });
 
     test("renders empty table when backend unavailable, user only", async () => {
         setupUserOnly();
 
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/CollegiateSubreddits/all").timeout();
+        axiosMock.onGet("/api/earthquakes/all").timeout();
 
         const restoreConsole = mockConsole();
 
         const { queryByTestId } = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <CollegiateSubredditsIndexPage />
+                    <EarthquakesIndexPage />
                 </MemoryRouter>
             </QueryClientProvider>
         );
@@ -129,42 +108,33 @@ describe("CollegiateSubredditsIndexPage tests", () => {
         await waitFor(() => { expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1); });
 
         const errorMessage = console.error.mock.calls[0][0];
-        expect(errorMessage).toMatch("Error communicating with backend via GET on /api/CollegiateSubreddits/all");
+        expect(errorMessage).toMatch("Error communicating with backend via GET on /api/earthquakes/all");
         restoreConsole();
 
         expect(queryByTestId(`${testId}-cell-row-0-col-id`)).not.toBeInTheDocument();
     });
 
 
-    test("test what happens when you click delete, admin", async () => {
-        setupAdminUser();
-
+    test("purges one earthquake without crashing for user", async () => {
+        setupUserOnly();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/CollegiateSubreddits/all").reply(200, collegiateSubredditsFixtures.twoSubreddits);
-        axiosMock.onDelete("/api/CollegiateSubreddits").reply(200, "CollegiateSubreddit with id 1 was deleted");
-
+        axiosMock.onGet("/api/earthquakes/all").reply(200, earthquakesFixtures.oneEarthquake);
+        axiosMock.onPost("/api/earthquakes/purge").reply(200);
 
         const { getByTestId } = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <CollegiateSubredditsIndexPage />
+                    <EarthquakesIndexPage />
                 </MemoryRouter>
             </QueryClientProvider>
         );
-        
-        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toBeInTheDocument(); });
+        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(1); });
 
-       expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); 
+        const Purge_Button = getByTestId('purge-button');
+        expect(Purge_Button).toBeInTheDocument();
 
+        fireEvent.click(Purge_Button);
 
-        const deleteButton = getByTestId(`${testId}-cell-row-0-col-Delete-button`);
-        expect(deleteButton).toBeInTheDocument();
-       
-        fireEvent.click(deleteButton);
-
-        await waitFor(() => { expect(mockToast).toBeCalledWith("CollegiateSubreddit with id 1 was deleted") });
-        
-
+        await waitFor(() => { expect(mockToast).toBeCalledWith("Successfully deleted all earthquakes!"); });
     });
-
 });

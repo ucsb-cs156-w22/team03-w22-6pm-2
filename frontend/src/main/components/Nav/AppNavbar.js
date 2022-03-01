@@ -62,7 +62,7 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
                 )
               }
             </Nav>
-
+            
 
             <Nav className="mr-auto">
               {
@@ -72,6 +72,21 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
                     {
                       hasRole(currentUser, "ROLE_ADMIN") && (
                         <NavDropdown.Item href="/students/create" data-testid="appnavbar-students-create">Create</NavDropdown.Item>
+                      )
+                    }
+                  </NavDropdown>
+                )
+              }
+            </Nav>
+
+            <Nav className="mr-auto">
+              {
+                hasRole(currentUser, "ROLE_USER") && (
+                  <NavDropdown title="Earthquakes" id="appnavbar-earthquakes-dropdown" data-testid="appnavbar-earthquakes-dropdown" >
+                    <NavDropdown.Item href="/earthquakes/list" data-testid="appnavbar-earthquakes-list">List</NavDropdown.Item>
+                    {
+                      hasRole(currentUser, "ROLE_ADMIN") && (
+                        <NavDropdown.Item href="/earthquakes/retrieve" data-testid="appnavbar-earthquakes-retrieve">Retrieve</NavDropdown.Item>
                       )
                     }
                   </NavDropdown>
@@ -102,22 +117,6 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
                     {
                       hasRole(currentUser, "ROLE_ADMIN") && (
                         <NavDropdown.Item href="/ucsbsubjects/create" data-testid="appnavbar-ucsbsubjects-create">Create</NavDropdown.Item>
-                      )
-                    }
-                  </NavDropdown>
-                )
-              }
-            </Nav>
-
-            <Nav className="mr-auto">
-              {
-                hasRole(currentUser, "ROLE_USER") && (
-                  <NavDropdown title="Earthquakes" id="appnavbar-earthquakes-dropdown" data-testid="appnavbar-earthquakes-dropdown" >
-                    <NavDropdown.Item href="/earthquakes/list" data-testid="appnavbar-earthquakes-list">List</NavDropdown.Item>
-                    {
-                      hasRole(currentUser, "ROLE_ADMIN") && (
-                        <NavDropdown.Item href="/earthquakes/retrieve" data-testid="appnavbar-earthquakes-retrieve">Create</NavDropdown.Item>
-
                       )
                     }
                   </NavDropdown>
