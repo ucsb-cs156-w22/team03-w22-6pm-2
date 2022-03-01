@@ -3,7 +3,7 @@ import CollegiateSubredditsCreatePage from "main/pages/CollegiateSubreddits/Coll
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 
-import { apiCurrentUserFixtures }  from "fixtures/currentUserFixtures";
+import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import { collegiateSubredditsFixtures } from "fixtures/collegiateSubredditsFixtures";
 import axios from "axios";
@@ -41,8 +41,15 @@ describe("CollegiateSubredditsCreatePage tests", () => {
     });
 
 
-    const queryClient = new QueryClient();
+    beforeEach(() => {
+        axiosMock.reset();
+        axiosMock.resetHistory();
+        axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
+        axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
+    });
+
     test("renders without crashing", () => {
+        const queryClient = new QueryClient();
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>

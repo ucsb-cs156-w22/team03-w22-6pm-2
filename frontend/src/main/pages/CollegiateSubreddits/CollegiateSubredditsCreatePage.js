@@ -1,3 +1,4 @@
+
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import CollegiateSubredditsForm from "main/components/CollegiateSubreddits/CollegiateSubredditsForm";
 import { Navigate } from 'react-router-dom';

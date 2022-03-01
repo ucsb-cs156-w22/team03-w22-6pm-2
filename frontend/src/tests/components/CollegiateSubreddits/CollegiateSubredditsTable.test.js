@@ -1,5 +1,5 @@
 import { fireEvent, render, waitFor } from "@testing-library/react";
-import { collegiateSubredditsFixtures } from "fixtures/collegiateSubredditsFixtures";
+import { collegiateSubredditFixtures1 } from "fixtures/collegiateSubredditFixtures1";
 import CollegiateSubredditsTable from "main/components/CollegiateSubreddits/CollegiateSubredditsTable"
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
@@ -69,7 +69,7 @@ describe("UserTable tests", () => {
     const { getByText, getByTestId } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <CollegiateSubredditsTable subreddits={collegiateSubredditsFixtures.twoSubreddits} currentUser={currentUser} />
+          <CollegiateSubredditsTable subreddits={collegiateSubredditFixtures1.twoSubreddits} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
@@ -109,7 +109,7 @@ describe("UserTable tests", () => {
     const { getByText, getByTestId } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <CollegiateSubredditsTable subreddits={collegiateSubredditsFixtures.twoSubreddits} currentUser={currentUser} />
+          <CollegiateSubredditsTable subreddits={collegiateSubredditFixtures1.twoSubreddits} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
@@ -133,7 +133,7 @@ describe("UserTable tests", () => {
     const { getByText, getByTestId } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <CollegiateSubredditsTable subreddits={collegiateSubredditsFixtures.twoSubreddits} currentUser={currentUser} />
+          <CollegiateSubredditsTable subreddits={collegiateSubredditFixtures1.twoSubreddits} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
