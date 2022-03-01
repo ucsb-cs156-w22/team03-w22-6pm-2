@@ -1,40 +1,40 @@
 const ucsbSubjectsFixtures = {
     oneSubject: {
         "id": 1,
-        "subjectCode": "Math",
-        "subjectTranslation": "English",
-        "deptCode": "314",
-        "collegeCode": "93117",
-        "relatedDeptCode": "Computer Science",
-        "inactive": false
+        "subjectCode": "MATH",
+        "subjectTranslation": "Math",
+        "deptCode": "MATH",
+        "collegeCode": "L&S",
+        "relatedDeptCode": "null",
+        "inactive": "false"
     },
     threeSubjects: [
         {
             "id": 2,
-            "subjectCode": "English",
-            "subjectTranslation": "Spanish",
-            "deptCode": "123",
-            "collegeCode": "93117",
-            "relatedDeptCode": "History",
-            "inactive": false
+            "subjectCode": "ENGL",
+            "subjectTranslation": "English",
+            "deptCode": "ENGL",
+            "collegeCode": "L&S",
+            "relatedDeptCode": "null",
+            "inactive": "false"
         },
         {
             "id": 3,
-            "subjectCode": "Chemistry",
-            "subjectTranslation": "German",
-            "deptCode": "271",
-            "collegeCode": "93117",
-            "relatedDeptCode": "Physics",
-            "inactive": false
+            "subjectCode": "CHEM",
+            "subjectTranslation": "Chemistry",
+            "deptCode": "CHEM",
+            "collegeCode": "L&S",
+            "relatedDeptCode": "null",
+            "inactive": "false"
         },
         {
             "id": 4,
-            "subjectCode": "Biology",
-            "subjectTranslation": "Chinese",
-            "deptCode": "999",
-            "collegeCode": "93117",
-            "relatedDeptCode": "Psychology",
-            "inactive": false
+            "subjectCode": "BIO",
+            "subjectTranslation": "Biology",
+            "deptCode": "BIO",
+            "collegeCode": "L&S",
+            "relatedDeptCode": "null",
+            "inactive": "false"
         },
     ]
 };
