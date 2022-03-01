@@ -1,32 +1,34 @@
 
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-import CollegiateSubredditForm from "main/components/CollegiateSubreddits/CollegiateSubredditForm";
-import { Navigate } from 'react-router-dom'
+import CollegiateSubredditsForm from "main/components/CollegiateSubreddits/CollegiateSubredditsForm";
+import { Navigate } from 'react-router-dom';
 import { useBackendMutation } from "main/utils/useBackend";
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
+import { Col } from "react-bootstrap";
+
 
 export default function CollegiateSubredditsCreatePage() {
 
-  const objectToAxiosParams = (collegiateSubreddit) => ({
-    url: "/api/collegiateSubreddits/post",
+  const objectToAxiosParams = (CollegiateSubreddit) => ({
+    url: "/api/CollegiateSubreddits/post",
     method: "POST",
     params: {
-      name: collegiateSubreddit.name,
-      location: collegiateSubreddit.location,
-      subreddit: collegiateSubreddit.subreddit
+      name: CollegiateSubreddit.name,
+      location: CollegiateSubreddit.location,
+      subreddit: CollegiateSubreddit.subreddit
     }
   });
 
-  const onSuccess = (collegiateSubreddit) => {
-    toast(`New collegiateSubreddit Created - id: ${collegiateSubreddit.id} name: ${collegiateSubreddit.name}`);
+  const onSuccess = (CollegiateSubreddit) => {
+    toast(`New CollegiateSubreddit Created - id: ${CollegiateSubreddit.id} name: ${CollegiateSubreddit.name}`);
   }
 
   const mutation = useBackendMutation(
     objectToAxiosParams,
-     { onSuccess }, 
-     // Stryker disable next-line all : hard to set up test for caching
-     ["/api/collegiateSubreddits/all"]
-     );
+    { onSuccess },
+    // Stryker disable next-line all : hard to set up test for caching
+    ["/api/CollegiateSubreddits/all"]
+  );
 
   const { isSuccess } = mutation
 
@@ -35,7 +37,7 @@ export default function CollegiateSubredditsCreatePage() {
   }
 
   if (isSuccess) {
-    return <Navigate to="/collegiateSubreddits/list" />
+    return <Navigate to="/collegiatesubreddits/list" />
   }
 
   return (
@@ -43,8 +45,7 @@ export default function CollegiateSubredditsCreatePage() {
       <div className="pt-2">
         <h1>Create New CollegiateSubreddit</h1>
 
-        <CollegiateSubredditForm submitAction={onSubmit} />
-
+        <CollegiateSubredditsForm submitAction={onSubmit} />
       </div>
     </BasicLayout>
   )

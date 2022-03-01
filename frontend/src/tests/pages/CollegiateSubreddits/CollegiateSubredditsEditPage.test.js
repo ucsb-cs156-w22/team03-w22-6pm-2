@@ -1,4 +1,4 @@
-import { fireEvent, queryByTestId, render, waitFor } from "@testing-library/react";
+import { fireEvent, queryAllByRole, queryByTestId, render, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import CollegiateSubredditsEditPage from "main/pages/CollegiateSubreddits/CollegiateSubredditsEditPage";
@@ -43,7 +43,7 @@ describe("CollegiateSubredditsEditPage tests", () => {
             axiosMock.resetHistory();
             axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
             axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
-            axiosMock.onGet("/api/collegiateSubreddits", { params: { id: 17 } }).timeout();
+            axiosMock.onGet("/api/CollegiateSubreddits", { params: { id: 17 } }).timeout();
         });
 
         const queryClient = new QueryClient();
@@ -56,7 +56,7 @@ describe("CollegiateSubredditsEditPage tests", () => {
                 </QueryClientProvider>
             );
             await waitFor(() => expect(getByText("Edit CollegiateSubreddit")).toBeInTheDocument());
-            expect(queryByTestId("CollegiateSubredditForm-name")).not.toBeInTheDocument();
+            expect(queryByTestId("CollegiateSubredditsForm-location")).not.toBeInTheDocument();
         });
     });
 
@@ -69,17 +69,17 @@ describe("CollegiateSubredditsEditPage tests", () => {
             axiosMock.resetHistory();
             axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
             axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
-            axiosMock.onGet("/api/collegiateSubreddits", { params: { id: 17 } }).reply(200, {
+            axiosMock.onGet("/api/CollegiateSubreddits", { params: { id: 17 } }).reply(200, {
                 id: 17,
-                name: 'O',
-                location: "E",
-                subreddit: "G"
+                location: "Santa Barbra",
+                name: "UCSB",
+                subreddit: "UCSantaBarbra"
             });
-            axiosMock.onPut('/api/collegiateSubreddits').reply(200, {
+            axiosMock.onPut('/api/CollegiateSubreddits').reply(200, {
                 id: "17",
-                name: 'M',
-                location: "A",
-                subreddit: "F"
+                location: "Los Angeles",
+                name: "UCLA",
+                subreddit: "UCLosAngeles"
             });
         });
 
@@ -104,18 +104,18 @@ describe("CollegiateSubredditsEditPage tests", () => {
                 </QueryClientProvider>
             );
 
-            await waitFor(() => expect(getByTestId("CollegiateSubredditForm-name")).toBeInTheDocument());
+            await waitFor(() => expect(getByTestId("CollegiateSubredditsForm-location")).toBeInTheDocument());
 
-            const idField = getByTestId("CollegiateSubredditForm-id");
-            const nameField = getByTestId("CollegiateSubredditForm-name");
-            const locationField = getByTestId("CollegiateSubredditForm-location");
-            const subredditField = getByTestId("CollegiateSubredditForm-subreddit");
-            const submitButton = getByTestId("CollegiateSubredditForm-submit");
+            const idField = getByTestId("CollegiateSubredditsForm-id");
+            const locationField = getByTestId("CollegiateSubredditsForm-location");
+            const nameField = getByTestId("CollegiateSubredditsForm-name");
+            const subredditField = getByTestId("CollegiateSubredditsForm-subreddit");
+            const submitButton = getByTestId("CollegiateSubredditsForm-submit");
 
             expect(idField).toHaveValue("17");
-            expect(nameField).toHaveValue("O");
-            expect(locationField).toHaveValue("E");
-            expect(subredditField).toHaveValue("G");
+            expect(locationField).toHaveValue("Santa Barbra");
+            expect(nameField).toHaveValue("UCSB");
+            expect(subredditField).toHaveValue("UCSantaBarbra");
         });
 
         test("Changes when you click Update", async () => {
@@ -130,42 +130,41 @@ describe("CollegiateSubredditsEditPage tests", () => {
                 </QueryClientProvider>
             );
 
-            await waitFor(() => expect(getByTestId("CollegiateSubredditForm-name")).toBeInTheDocument());
+            await waitFor(() => expect(getByTestId("CollegiateSubredditsForm-location")).toBeInTheDocument());
 
-            const idField = getByTestId("CollegiateSubredditForm-id");
-            const nameField = getByTestId("CollegiateSubredditForm-name");
-            const locationField = getByTestId("CollegiateSubredditForm-location");
-            const subredditField = getByTestId("CollegiateSubredditForm-subreddit");
-            const submitButton = getByTestId("CollegiateSubredditForm-submit");
+            const idField = getByTestId("CollegiateSubredditsForm-id");
+            const locationField = getByTestId("CollegiateSubredditsForm-location");
+            const nameField = getByTestId("CollegiateSubredditsForm-name");
+            const subredditField = getByTestId("CollegiateSubredditsForm-subreddit");
+            const submitButton = getByTestId("CollegiateSubredditsForm-submit");
 
             expect(idField).toHaveValue("17");
-            expect(nameField).toHaveValue("O");
-            expect(locationField).toHaveValue("E");
-            expect(subredditField).toHaveValue("G");
+            expect(locationField).toHaveValue("Santa Barbra");
+            expect(nameField).toHaveValue("UCSB");
+            expect(subredditField).toHaveValue("UCSantaBarbra");
 
             expect(submitButton).toBeInTheDocument();
 
-            fireEvent.change(nameField, { target: { value: 'M' } })
-            fireEvent.change(locationField, { target: { value: 'A' } })
-            fireEvent.change(subredditField, { target: { value: "F" } })
+            fireEvent.change(locationField, { target: { value: 'Los Angeles' } })
+            fireEvent.change(nameField, { target: { value: 'UCLA' } })
+            fireEvent.change(subredditField, { target: { value: "UCLosAngeles" } })
 
             fireEvent.click(submitButton);
 
             await waitFor(() => expect(mockToast).toBeCalled);
-            expect(mockToast).toBeCalledWith("CollegiateSubreddit Updated - id: 17 name: M");
-            expect(mockNavigate).toBeCalledWith({ "to": "/collegiateSubreddits/list" });
+            expect(mockToast).toBeCalledWith("CollegiateSubreddit Updated - id: 17 name: UCLA");
+            expect(mockNavigate).toBeCalledWith({ "to": "/collegiatesubreddits/list" });
 
             expect(axiosMock.history.put.length).toBe(1); // times called
             expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
             expect(axiosMock.history.put[0].data).toBe(JSON.stringify({
-                name: 'M',
-                location: "A",
-                subreddit: "F"
+                location: 'Los Angeles',
+                name: "UCLA",
+                subreddit: "UCLosAngeles"
             })); // posted object
 
         });
 
-       
+
     });
 });
-

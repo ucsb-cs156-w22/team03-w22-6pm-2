@@ -1,11 +1,11 @@
-
-import { render, waitFor, fireEvent } from "@testing-library/react";
+import { fireEvent, render , waitFor} from "@testing-library/react";
 import CollegiateSubredditsCreatePage from "main/pages/CollegiateSubreddits/CollegiateSubredditsCreatePage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
+import { collegiateSubredditsFixtures } from "fixtures/collegiateSubredditsFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 
@@ -40,6 +40,14 @@ describe("CollegiateSubredditsCreatePage tests", () => {
         axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
     });
 
+
+    beforeEach(() => {
+        axiosMock.reset();
+        axiosMock.resetHistory();
+        axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
+        axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
+    });
+
     test("renders without crashing", () => {
         const queryClient = new QueryClient();
         render(
@@ -56,12 +64,12 @@ describe("CollegiateSubredditsCreatePage tests", () => {
         const queryClient = new QueryClient();
         const collegiateSubreddit = {
             id: 17,
-            name: "a",
-            location: "b",
-            subreddit: "c",
+            name: "UCSB",
+            location: "https://reddit.com/r/UCSantaBarbara/",
+            subreddit: "UCSantaBarbara"
         };
 
-        axiosMock.onPost("/api/collegiateSubreddits/post").reply( 202, collegiateSubreddit );
+        axiosMock.onPost("/api/CollegiateSubreddits/post").reply( 202, collegiateSubreddit );
 
         const { getByTestId } = render(
             <QueryClientProvider client={queryClient}>
@@ -72,17 +80,17 @@ describe("CollegiateSubredditsCreatePage tests", () => {
         );
 
         await waitFor(() => {
-            expect(getByTestId("CollegiateSubredditForm-name")).toBeInTheDocument();
+            expect(getByTestId("CollegiateSubredditsForm-name")).toBeInTheDocument();
         });
 
-        const nameField = getByTestId("CollegiateSubredditForm-name");
-        const locationField = getByTestId("CollegiateSubredditForm-location");
-        const subredditField = getByTestId("CollegiateSubredditForm-subreddit");
-        const submitButton = getByTestId("CollegiateSubredditForm-submit");
+        const nameField = getByTestId("CollegiateSubredditsForm-name");
+        const locationField = getByTestId("CollegiateSubredditsForm-location");
+        const subredditField = getByTestId("CollegiateSubredditsForm-subreddit");
+        const submitButton = getByTestId("CollegiateSubredditsForm-submit");
 
-        fireEvent.change(nameField, { target: { value: 'a' } });
-        fireEvent.change(locationField, { target: { value: 'b' } });
-        fireEvent.change(subredditField, { target: { value: 'c' } });
+        fireEvent.change(nameField, { target: { value: 'UCSB' } });
+        fireEvent.change(locationField, { target: { value: 'https://reddit.com/r/UCSantaBarbara/' } });
+        fireEvent.change(subredditField, { target: { value: 'UCSantaBarbara' } });  
 
         expect(submitButton).toBeInTheDocument();
 
@@ -92,14 +100,13 @@ describe("CollegiateSubredditsCreatePage tests", () => {
 
         expect(axiosMock.history.post[0].params).toEqual(
             {
-            "name": "a",
-            "location": "b",
-            "subreddit": "c"
+            "name": "UCSB",
+            "location": "https://reddit.com/r/UCSantaBarbara/",
+            "subreddit": "UCSantaBarbara"
         });
 
-        expect(mockToast).toBeCalledWith("New collegiateSubreddit Created - id: 17 name: a");
-        expect(mockNavigate).toBeCalledWith({ "to": "/collegiateSubreddits/list" });
+        expect(mockToast).toBeCalledWith("New CollegiateSubreddit Created - id: 17 name: UCSB");
+        expect(mockNavigate).toBeCalledWith({ "to": "/collegiatesubreddits/list" });
     });
-
 
 });
