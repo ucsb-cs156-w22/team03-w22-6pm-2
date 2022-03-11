@@ -99,6 +99,25 @@ function App() {
           )
         }
 
+        /*
+        {
+          hasRole(currentUser, "ROLE_USER") && (
+            <>
+              <Route exact path="/personalschedules/list" element={<PersonalSchedulesIndexPage />} />
+              <Route exact path="/personalschedules/create" element={<PersonalSchedulesCreatePage />} />
+            </>
+          )
+        }
+        {
+          hasRole(currentUser, "ROLE_ADMIN") && (
+            <>
+              <Route exact path="/personalschedules/admin/list" element={<PersonalSchedulesIndexPage />} />
+              <Route exact path="/personalschedules/admin/create" element={<PersonalSchedulesCreatePage />} />
+            </>
+          )
+        }
+        */
+
         {
           hasRole(currentUser, "ROLE_ADMIN") && (
             <>
